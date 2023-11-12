@@ -1,10 +1,10 @@
 package main
 
 import (
-    "bufio"
-    "fmt"
-    "os"
-    "strconv"
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
 )
 
 func main(){
@@ -42,15 +42,30 @@ func main(){
     if len(elf_bag_buffer) > 0 {
         elf_bags = append(elf_bags, elf_bag_buffer)
     }
-    
-    var fullest_bag_sum int
+
+    fullest_bags := []int{0,0,0}
     for _, elf_bag := range elf_bags{
         bag_sum_buffer := 0
         for _, fooditem := range elf_bag{
             bag_sum_buffer += fooditem
         }
-        fullest_bag_sum = max(fullest_bag_sum, bag_sum_buffer)
+
+        for index := range fullest_bags{
+            if (bag_sum_buffer > fullest_bags[index]){
+                for i:=len(fullest_bags)-2 ; i>=index ; i--{
+                    fullest_bags[i+1] = fullest_bags[i]
+                }
+                fullest_bags[index] = bag_sum_buffer
+                break
+            }
+        }
     }
 
-    fmt.Println(fullest_bag_sum)
+    result := 0
+    for _, fullest_bag := range fullest_bags{
+        println(fullest_bag)
+        result += fullest_bag
+    }
+
+    fmt.Println(result)
 }

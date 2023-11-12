@@ -1,4 +1,7 @@
-﻿namespace MyApp
+﻿using System;
+using System.Linq;
+
+namespace MyApp
 {
     internal class Program
     {
@@ -8,11 +11,20 @@
 
             var lines = File.ReadLines(readPath);
             
-            var largest_elf_bag = 0;
+            int[] largest_elf_bags = {0,0,0};
             var elf_bag_buffer = 0;
+
             foreach (var line in lines){
                 if (line == ""){
-                    largest_elf_bag = Math.Max(largest_elf_bag, elf_bag_buffer);
+                    for (var i=0 ; i<largest_elf_bags.Length ; i++){
+                        if (elf_bag_buffer > largest_elf_bags[i]){
+                            for (var j=largest_elf_bags.Length-2 ; j>=i ; j--){
+                                largest_elf_bags[j+1] = largest_elf_bags[j];
+                            }
+                            largest_elf_bags[i] = elf_bag_buffer;
+                            break;
+                        }
+                    }
                     elf_bag_buffer = 0;
                     continue;
                 }
@@ -20,9 +32,18 @@
                         elf_bag_buffer += fooditem;
                 }
             }
-            largest_elf_bag = Math.Max(largest_elf_bag, elf_bag_buffer);
+            if (elf_bag_buffer!=0){
+                for (var i=0 ; i<largest_elf_bags.Length ; i++){
+                    if (elf_bag_buffer > largest_elf_bags[i]){
+                        for (var j=largest_elf_bags.Length-2 ; j>=i ; j--){
+                            largest_elf_bags[j+1] = largest_elf_bags[j];
+                        }
+                        largest_elf_bags[i] = elf_bag_buffer;
+                    }
+                }
+            }
 
-            Console.WriteLine(largest_elf_bag);
+            Console.WriteLine(largest_elf_bags.Sum());
         }
     }
 }
