@@ -13,10 +13,10 @@ func RockPaperScissors() (result int){
         "B": 1, // paper
         "C": 2, // scissor
     }
-    mychoices := map[string]int{
-        "X": 0, // rock
-        "Y": 1, // paper
-        "Z": 2, // scissor
+    desired_results := map[string]int{
+        "X": 0, // I lose
+        "Y": 3, // draw
+        "Z": 6, // I win
     }
 
     readPath := os.Args[1]
@@ -35,21 +35,19 @@ func RockPaperScissors() (result int){
 
         choices := strings.Split(line, " ")
         their_choice := theirchoices[choices[0]]
-        my_choice := mychoices[choices[1]]
+        desired_result := desired_results[choices[1]]
 
-        var result_score int
-        if (their_choice == my_choice){
-            //draw
-            result_score = 3
-        }else if (their_choice + 1) % 3 == my_choice{
-            // I win
-            result_score = 6
-        }else{
-            //they win
-            result_score = 0
+        var my_choice int;
+        switch desired_result{
+        case 0:
+            my_choice = (their_choice+2)%3
+        case 3:
+            my_choice = their_choice
+        case 6:
+            my_choice = (their_choice+1)%3
         }
 
-        result += result_score + my_choice + 1
+        result += my_choice + desired_result + 1
     }
 
     return result

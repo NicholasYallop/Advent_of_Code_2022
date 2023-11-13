@@ -19,23 +19,22 @@ pub fn rock_paper_scissors() -> i32{
             'C' => 2,
             _ => panic!("tried to turn {} into A, B, C", choices[0].chars().nth(0).unwrap())
         };
-        let my_choice: i32 = match choices[1].chars().nth(0).unwrap(){
+        let desired_outcome: i32 = match choices[1].chars().nth(0).unwrap(){
             'X' => 0,
-            'Y' => 1,
-            'Z' => 2,
+            'Y' => 3,
+            'Z' => 6,
             _ => panic!("tried to turn {} into X, Y, Z", choices[0].chars().nth(0).unwrap())
         };
 
-        let result_score: i32;
-        if my_choice == their_choice{
-            result_score = 3;
-        }else if (their_choice+1)%3 == my_choice{
-            result_score = 6;
-        }else{
-            result_score = 0;
+        let my_choice: i32; // 0: rock | 1: paper | 2: scissors
+        match desired_outcome{
+            0 => my_choice = (their_choice+2)%3,
+            3 => my_choice = their_choice,
+            6 => my_choice = (their_choice+1)%3,
+            _ => my_choice = 0,
         }
 
-        result += result_score + my_choice + 1;
+        result += my_choice + desired_outcome + 1;
     });
 
     return result;
