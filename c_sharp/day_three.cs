@@ -9,24 +9,21 @@ namespace day_three{
             var result = 0;
             var lines = File.ReadLines(readPath);
 
+            List<char> chars = new();
+            var wrapped_elf_count = -1;
             foreach(var line in lines){
-                var length = line.Length;
-
-                var compartment_one = line.Take(length/2);
-                var compartment_two = line.Skip(length/2).Take(length/2);
-
-                List<char> tested = new();
-                foreach(var char_one in compartment_one){
-                    if (!tested.Contains(char_one)){
-                        tested.Add(char_one);
-
-                        foreach(var char_two in compartment_two){
-                            if (char_one==char_two){
-                                result += priority(char_one);
-                                break;
-                            }
-                        }
-                    }
+                wrapped_elf_count = (wrapped_elf_count+1)%3;
+                switch (wrapped_elf_count){
+                    case 0:
+                        chars = line.ToList();
+                        break;
+                    case 1:
+                        chars = chars.Where(c => line.Contains(c)).ToList();
+                        break;
+                    case 2:
+                        chars = chars.Where(c => line.Contains(c)).ToList();
+                        result += priority(chars.First());
+                        break;
                 }
             }
 

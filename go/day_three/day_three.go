@@ -1,9 +1,10 @@
 package day_three
 
 import (
-    "bufio"
-    "errors"
-    "os"
+	"bufio"
+	"errors"
+	"fmt"
+	"os"
 )
 
 func Rucksack_Compartments() (result int){
@@ -18,29 +19,48 @@ func Rucksack_Compartments() (result int){
 
     fileScanner.Split(bufio.ScanLines)
 
+    wrapped_elf_count := -1
+    var chars map[rune]int
     for fileScanner.Scan(){
         line := fileScanner.Text()
-        length := len(line)
-        compartment_one := line[0:(length/2)]
-        compartment_two := line[(length/2):]
 
-        have_tested := make(map[rune]int)
-        for _, char_one := range compartment_one{
-            // if we haven't already evaluated 
-            if _, ok := have_tested[char_one]; !ok {
-                have_tested[char_one] = 1;
-
-                for _, char_two := range compartment_two{
-                    if char_one == char_two{
-                        i, err := priority(char_one)
-                        if err!=nil{
-                            panic(err)    
-                        }
-                        result += i
-                        break
-                    }
-                }    
+        wrapped_elf_count = (wrapped_elf_count+1)%3
+        switch wrapped_elf_count{
+        case 0:
+            chars = make(map[rune]int)
+            for _, char := range line{
+                chars[char]=1
             }
+
+        case 1:
+            temp_chars := make(map[rune]int)
+            for _, char := range line{
+                if _, ok := chars[char]; ok{
+                    temp_chars[char]=1
+                }
+            }
+            chars = temp_chars
+
+        case 2:
+            temp_chars := make(map[rune]int)
+            for _, char := range line{
+                _, ok := chars[char]; 
+                _, temp_ok := temp_chars[char];
+                if ok && !temp_ok{
+                    temp_chars[char]=1
+                }
+            }
+            for c := range temp_chars {
+                fmt.Println(string(c));
+                p, err := priority(c)
+                if err!=nil {
+                    panic(err)
+                }
+            
+                result += p
+                break
+            }
+
         }
     }
 

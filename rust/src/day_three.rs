@@ -10,24 +10,39 @@ pub fn rucksack_compartments() -> u32{
         );
 
     let mut result: u32 = 0;
+    let mut chars: HashMap<char, ()> = HashMap::new();
+    let mut wrapped_elf_counter = -1;
     contents.lines().into_iter().for_each(|s|{
-        let length = s.len();
-        let compartment_one = &s[..(length/2)];
-        let compartment_two = &s[(length/2)..];
-        
-        let mut tested: HashMap<char, ()> = HashMap::new();
-        compartment_one.chars().into_iter().for_each(|c|{
-            if !tested.contains_key(&c){
-                tested.insert(c, ());
-
-                for index in 0..length/2{
-                    if c == compartment_two.chars().nth(index).unwrap(){
-                        result += priority(c);
-                        break;
+        wrapped_elf_counter = (wrapped_elf_counter+1)%3;
+        match wrapped_elf_counter{
+            0 => {
+                chars = HashMap::new();
+                s.chars().into_iter().for_each(|c|{
+                    chars.insert(c, ());
+                });
+            },
+            1 => {
+                let mut temp_chars: HashMap<char, ()> = HashMap::new();
+                s.chars().into_iter().for_each(|c|{
+                    if chars.contains_key(&c){
+                        temp_chars.insert(c, ());
                     }
-                }
-            }
-        });
+                });
+                chars = temp_chars;
+            },
+            2 => {
+                let mut temp_chars: HashMap<char, ()> = HashMap::new();
+                s.chars().into_iter().for_each(|c|{
+                    if chars.contains_key(&c){
+                        temp_chars.insert(c, ());
+                    }
+                });
+                let char = temp_chars.iter().nth(0).unwrap();
+                println!("{}", *char.0);
+                result += priority(*char.0);
+            },
+            _ => println!("whoops"),
+        }
     });
     return result;
 }
