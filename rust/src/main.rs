@@ -1,6 +1,7 @@
+mod day_three;
 mod day_two;
 mod day_one;
 
 fn main() {
-    println!("{}", day_two::rock_paper_scissors());
+    println!("{}", day_three::rucksack_compartments());
 }

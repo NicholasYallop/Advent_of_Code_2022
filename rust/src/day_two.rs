@@ -1,5 +1,6 @@
 use std::{env, fs};
 
+#[allow(dead_code)]
 pub fn rock_paper_scissors() -> i32{
     let args: Vec<String> = env::args().collect();
 
