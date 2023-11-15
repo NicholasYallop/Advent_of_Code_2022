@@ -39,9 +39,9 @@ func Overlapping_Assignments() (result int){
         if start_one == start_two{
             result += 1
         }else if start_one > start_two {
-            if end_one <= end_two {result+=1}
+            if end_two >= start_one {result +=1}
         }else{
-            if end_one >= end_two {result+=1}
+            if end_one >= start_two {result+=1}
         }
     }
 

@@ -21,7 +21,7 @@ pub fn overlapping_assignments() -> usize{
         let end_two = elf_two[1].parse::<u32>().unwrap();
 
         start_one == start_two
-        || (start_one > start_two && end_one <= end_two)
-        || (start_one < start_two && end_one >= end_two)
+        || (start_one > start_two && end_two >= start_one)
+        || (start_one < start_two && end_one >= start_two)
     }).count()
 }

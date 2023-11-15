@@ -16,8 +16,8 @@ namespace day_four{
                 var end_two = int.Parse(elf_two[1]);
 
                 if (start_one == start_two) result++;
-                else if (start_one > start_two) { if (end_one <= end_two) result++; }
-                else if (end_one >= end_two) result++;
+                else if (start_one > start_two) { if (end_two >= start_one) result++; }
+                else if (end_one >= start_two) result++;
             }
 
             return result;
