@@ -1,5 +1,6 @@
 use std::{fs, env, collections::HashMap};
 
+#[allow(dead_code)]
 pub fn rucksack_compartments() -> u32{
     let args: Vec<String> = env::args().collect();
 
@@ -47,6 +48,7 @@ pub fn rucksack_compartments() -> u32{
     return result;
 }
 
+#[allow(dead_code)]
 fn priority(c: char) -> u32{
     let i = c as u32;
     let a = 'a' as u32 - 1;

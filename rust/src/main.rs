@@ -1,7 +1,8 @@
-mod day_three;
-mod day_two;
 mod day_one;
+mod day_two;
+mod day_three;
+mod day_four;
 
 fn main() {
-    println!("{}", day_three::rucksack_compartments());
+    println!("{}", day_four::overlapping_assignments());
 }
