@@ -1,5 +1,6 @@
 use std::{fs, env};
 
+#[allow(dead_code)]
 pub fn overlapping_assignments() -> usize{
     let args: Vec<String> = env::args().collect();
 
