@@ -44,10 +44,8 @@ namespace day_five{
                 var from = from_column-1;
                 var to = to_column-1;
                 
-                for (var i=0 ; i<count ; i++){
-                    crates[to] = crates[to].Append(crates[from].Last()).ToList();
-                    crates[from].RemoveAt(crates[from].Count-1);
-                }
+                crates[to].AddRange(crates[from].Skip(crates[from].Count - count).Take(count));
+                crates[from].RemoveRange(crates[from].Count - count, count);
             }
 
             return crates.Aggregate("", (agg, list) =>

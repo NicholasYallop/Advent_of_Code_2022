@@ -37,8 +37,7 @@ pub fn crate_arrangement() -> String{
             let from = command[3].parse::<usize>().unwrap()-1;
             let to = command[5].parse::<usize>().unwrap()-1;
             
-            let mut source = crates[from][crates[from].len()-count..].to_vec();
-            source.reverse();
+            let source = crates[from][crates[from].len()-count..].to_vec();
             crates[to].extend(source.iter().cloned());
             let length = crates[from].len()-count;
             crates[from].truncate(length);

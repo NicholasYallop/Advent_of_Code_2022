@@ -5,7 +5,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"slices"
 	"strconv"
 	"strings"
 )
@@ -67,9 +66,10 @@ func Crate_Arrangement() (result string){
             helpers.Check(err)
             to := to_column-1
             
-            boxes_to_move := start_state[from][len(start_state[from])-count:]
-            slices.Reverse(boxes_to_move)
-            start_state[to] = append(start_state[to], boxes_to_move...)
+            start_state[to] = append(
+                start_state[to], 
+                start_state[from][len(start_state[from])-count:]...
+            )
             start_state[from] = start_state[from][:len(start_state[from])-count]
         }
 
