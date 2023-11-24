@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             var readPath = args[0];
-            Console.WriteLine(day_five.day_five.crate_arrangement(readPath));
+            Console.WriteLine(day_six.day_six.Repeating_Characters(readPath));
         }
     }
 }

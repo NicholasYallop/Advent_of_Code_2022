@@ -1,5 +1,6 @@
 use std::{env, fs, string::String};
 
+#[allow(dead_code)]
 pub fn crate_arrangement() -> String{
     let args: Vec<String> = env::args().collect();
 
