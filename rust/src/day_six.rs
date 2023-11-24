@@ -12,7 +12,7 @@ pub fn repeating_characters()->i32{
         if char_buffer.contains(&input_char){
             char_buffer = char_buffer[char_buffer.iter().position(|&r| r==input_char).unwrap()+1..].to_vec();
             char_buffer.push(input_char);
-        }else if char_buffer.len() == 3{
+        }else if char_buffer.len() == 13{
             ans = count;
             break;
         }else{

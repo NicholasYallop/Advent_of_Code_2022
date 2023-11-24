@@ -26,10 +26,10 @@ func Print(arr []rune){
 func Repeating_Characters() (result int) {
     line := os.Args[1]
 
-    char_buffer := make([]rune, 4)
+    char_buffer := make([]rune, 14)
     for line_index, line_char := range line{
         if contained, index := Contains(line_char, char_buffer); contained{
-            new_buffer := make([]rune, 4)
+            new_buffer := make([]rune, 14)
             for i:=index+1 ; i<len(char_buffer) ; i++{
                 if char_buffer[i] == 0{
                     new_buffer[i-index-1] = line_char
@@ -39,10 +39,10 @@ func Repeating_Characters() (result int) {
                 }
             }
             char_buffer = new_buffer
-        }else if index!=-1 {
+        }else if index!=-1 && index != len(char_buffer)-1 {
             char_buffer[index] = line_char
         }else{
-            return line_index
+            return line_index + 1
         }
     }
 

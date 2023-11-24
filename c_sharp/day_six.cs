@@ -15,12 +15,11 @@ namespace day_six
                                 );
 
                         char_buffer = char_buffer + input_char;
-                }else if (char_buffer.Length == 3){
+                }else if (char_buffer.Length == 13){
                     return index; 
                 }else{
                     char_buffer = char_buffer + input_char;
                 }
-                Console.WriteLine(char_buffer);
             }
             
             return 0;
